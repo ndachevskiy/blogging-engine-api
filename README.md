@@ -47,15 +47,15 @@ Endpoints documentation is accessible at /api-docs
 
 3. Please make sure to set up the following environment variables (database URL connection string should be always located at your root directory in .env file. You can set up different environments by adding postfixes, e.g. ".env.dev"):
 
--   PORT (port on which the application will be running; default value: [3000])
--   DATABASE_URL (connection string for your DB; default value for running locally: ["postgresql://postgres:mypass228@localhost:5432/blog_api_dev?schema=public"], for running in container:["postgresql://postgres:mypass228@postgres:5432/blog_api_dev?schema=public"])
+-   PORT (port on which the application will be running; default value: **3000**)
+-   DATABASE_URL (connection string for your DB; default value for running locally: **"postgresql://postgres:mypass228@localhost:5432/blog_api_dev?schema=public"**, for running in container:**"postgresql://postgres:mypass228@postgres:5432/blog_api_dev?schema=public"**)
 -   JWT_SECRET_ACCESS (JWT secret key for access token)
 -   JWT_SECRET_REFRESH (JWT secret key for refresh token)
--   JWT_EXPIRATION_ACCESS (expiration period for access token; default value: ["30m"])
--   JWT_EXPIRATION_REFRESH (expiration period for refresh token; default value: ["30d"])
--   NODE_ENV (environment variable defining in which environment you are running the up; default values: for test:[test], for development:[development])
--   API_URL (URL where your app is hosted, used for generating of activation links; default value:["http://localhost:3000"])
--   SENDGRID_API_KEY (mail service secret key used to send activation emails, by default Sendgrid is used; you can turn off this functionality in src/services/mail.service.js)
+-   JWT_EXPIRATION_ACCESS (expiration period for access token; default value: **"30m"**)
+-   JWT_EXPIRATION_REFRESH (expiration period for refresh token; default value: **"30d"**)
+-   NODE_ENV (environment variable defining in which environment you are running the up; default values: for test:**test**, for development:**development**)
+-   API_URL (URL where your app is hosted, used for generating of activation links; default value:**"http://localhost:3000"**)
+-   SENDGRID_API_KEY (mail service secret key used to send activation emails, by default Sendgrid is used; you can turn off this functionality in **src/services/mail.service.js**)
 -   USER_EMAIL (email from which activation emails will be sent)
 
 ## Running Locally
