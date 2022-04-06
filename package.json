@@ -1,0 +1,68 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "Simple blogging API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "dotenv -e .env.development nodemon src/index.js",
+    "docker": "dotenv -e .env node src/index.js",
+    "test": "dotenv -e .env.test jest --runInBand",
+    "migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev --name init",
+    "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
+    "migrate:docker": "dotenv -e .env -- npx prisma migrate dev --name init",
+    "migrate:docker-fix": "dotenv -e .env -- npx prisma db push --preview-feature",
+    "studio:dev": "dotenv -e .env.development -- npx prisma studio",
+    "studio:test": "dotenv -e .env.test -- npx prisma studio",
+    "eslint": "eslint"
+  },
+  "prisma": {
+    "schema": "src/db/prisma/schema.prisma",
+    "seed": "dotenv -e .env.development node src/db/prisma/seed.js"
+  },
+  "engines": {
+    "npm": ">=8.1.2",
+    "node": ">=17.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "watchPathIgnorePatterns": [
+      "node_modules"
+    ]
+  },
+  "keywords": [
+    "javascript",
+    "blog",
+    "prisma",
+    "node",
+    "express",
+    "mysql"
+  ],
+  "author": "Nikita Dachevskiy",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "jest-mock-extended": "^2.0.5",
+    "nodemon": "^2.0.15",
+    "prisma": "^3.11.1",
+    "supertest": "^6.2.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.11.1",
+    "@sendgrid/mail": "^7.6.2",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv-cli": "^5.1.0",
+    "express": "^4.17.3",
+    "jest": "^27.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "swagger-jsdoc": "^6.2.0",
+    "swagger-ui-express": "^4.3.0",
+    "uuid": "^8.3.2",
+    "winston": "^3.6.0",
+    "yup": "^0.32.11",
+    "yup-password": "^0.2.2"
+  }
+}

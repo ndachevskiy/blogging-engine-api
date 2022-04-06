@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String         @id @default(uuid())
+  email    String         @unique @db.VarChar(255)
+  password String         @db.VarChar(255)
+  posts    Post[]
+  tokens Token[]
+  keks Kek[]
+
+  @@map("user")
+}
+
+model Kek{
+  id Int @id @default(autoincrement())
+  name String
+  user User @relation(fields: [user_id],references: [id])
+  user_id String
+}
+
+model Token {
+  id      String @id @default(uuid())
+  token   String @db.VarChar(255)
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id])
+
+  @@index([user_id], map: "token_user_id_fkey")
+  @@map("token")
+}
+
+
+model Post {
+  id         String    @id @default(uuid())
+  title      String    @db.VarChar(50)
+  content    String    @db.VarChar(500)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user_id    String
+  user       User      @relation(fields: [user_id], references: [id])
+  comments   Comment[]
+
+  @@index([user_id], map: "post_user_id_fkey")
+  @@map("post")
+}
+
+model Comment {
+  id         String   @id @default(uuid())
+  author     String   @db.VarChar(25)
+  created_at DateTime @default(now())
+  post_id    String
+  rating     Int
+  content    String   @db.VarChar(250)
+  post       Post     @relation(fields: [post_id], references: [id])
+  votings    Voting[]
+
+  @@index([post_id], map: "comment_post_id_fkey")
+  @@map("comment")
+}
+
+model Voting {
+  id         String   @id @default(uuid())
+  ip         String   @unique
+  created_at DateTime @default(now())
+  comment_id String
+  value      Int
+  comment    Comment  @relation(fields: [comment_id], references: [id])
+
+  @@index([comment_id], map: "voting_comment_id_fkey")
+  @@map("voting")
+}

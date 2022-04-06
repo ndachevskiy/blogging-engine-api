@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(uuid())
+  email String @db.VarChar(255) @unique
+  password String @db.VarChar(255)
+  isactivated Boolean @default(false)
+  activationlink String? @unique
+  posts Post[]
+  tokens Token[]
+}
+
+model Token{
+  id String @id @default(uuid())
+  token String @unique
+  user User @relation(fields: [user_id],references: [id], onDelete: Cascade)
+  user_id String
+}
+
+model Post{
+  id String @id @default(uuid())
+  title String 
+  content String @db.VarChar(500)
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user User @relation(fields: [user_id],references: [id], onDelete: Cascade)
+  user_id String
+  comments Comment[]
+}
+
+model Comment{
+  id String @id @default(uuid())
+  author String @db.VarChar(25)
+  content String @db.VarChar(250)
+  created_at DateTime  @default(now())
+  rating Int
+  post Post @relation(fields: [post_id],references: [id], onDelete: Cascade)
+  post_id String
+  votings Voting[]
+  child_id String? @default(uuid())
+  child   Comment?   @relation("NestedComments", fields: [child_id], references: [id], onDelete: Cascade)
+  parent Comment?   @relation("NestedComments")
+
+
+}
+
+model Voting{
+  id String @id @default(uuid())
+  ip String
+  value Int 
+  created_at DateTime @default(now())
+  comment Comment @relation(fields: [comment_id],references: [id], onDelete: Cascade)
+  comment_id String
+}

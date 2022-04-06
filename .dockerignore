@@ -1,0 +1,9 @@
+node_modules
+.gitignore
+Dockerfile*
+docker-compose*
+README.md
+.eslintrc.js
+.editorconfig
+__tests__
+.github
